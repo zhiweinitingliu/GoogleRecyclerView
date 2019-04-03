@@ -9,6 +9,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Description :自定义RecyclerView
  * @Author : wdk
@@ -130,7 +133,8 @@ public class GoogleRecyclerView extends RecyclerView {
         @Override
         public void onItemClick(View itemView, int position) {
             //如果添加头布局的时候需要减position
-            onItemClickListener.onItemClick(itemView, position);
+            position -= googleRecyclerView.getHeaderCount();
+            if (position >= 0) onItemClickListener.onItemClick(itemView, position);
         }
     }
 
@@ -312,6 +316,63 @@ public class GoogleRecyclerView extends RecyclerView {
          * More data should be requested.
          */
         void onLoadMore();
+    }
+
+
+    private List<View> mHeaderViewList = new ArrayList<>();
+    private List<View> mFooterViewList = new ArrayList<>();
+
+    /**
+     * Add view at the headers.
+     */
+    public void addHeaderView(View view) {
+        mHeaderViewList.add(view);
+        if (mAdapterWrapper != null) {
+            mAdapterWrapper.addHeaderViewAndNotify(view);
+        }
+    }
+
+    /**
+     * Remove view from header.
+     */
+    public void removeHeaderView(View view) {
+        mHeaderViewList.remove(view);
+        if (mAdapterWrapper != null) {
+            mAdapterWrapper.removeHeaderViewAndNotify(view);
+        }
+    }
+
+    /**
+     * Add view at the footer.
+     */
+    public void addFooterView(View view) {
+        mFooterViewList.add(view);
+        if (mAdapterWrapper != null) {
+            mAdapterWrapper.addFooterViewAndNotify(view);
+        }
+    }
+
+    public void removeFooterView(View view) {
+        mFooterViewList.remove(view);
+        if (mAdapterWrapper != null) {
+            mAdapterWrapper.removeFooterViewAndNotify(view);
+        }
+    }
+
+    /**
+     * Get size of headers.
+     */
+    public int getHeaderCount() {
+        if (mAdapterWrapper == null) return 0;
+        return mAdapterWrapper.getHeaderCount();
+    }
+
+    /**
+     * Get size of footer.
+     */
+    public int getFooterCount() {
+        if (mAdapterWrapper == null) return 0;
+        return mAdapterWrapper.getFooterCount();
     }
 
 }
