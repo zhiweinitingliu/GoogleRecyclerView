@@ -167,6 +167,15 @@ public class GoogleRecyclerView extends RecyclerView {
     }
 
     /**
+     * Use the default to load more View.
+     */
+    public void useDefaultLoadMore() {
+        DefaultLoadMoreView defaultLoadMoreView = new DefaultLoadMoreView(getContext());
+        addFooterView(defaultLoadMoreView);
+        setLoadMoreView(defaultLoadMoreView);
+    }
+
+    /**
      * Load more view.
      */
     public void setLoadMoreView(LoadMoreView view) {
