@@ -31,7 +31,7 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
         setGravity(Gravity.CENTER);
         setVisibility(GONE);
 
-        inflate(context, R.layout.layout_fotter_loadmore, null);
+        inflate(context, R.layout.layout_fotter_loadmore, this);
         progress_bar = findViewById(R.id.progress_bar);
         tv_message = findViewById(R.id.tv_message);
 
