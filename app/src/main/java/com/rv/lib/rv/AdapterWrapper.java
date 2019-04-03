@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 /**
  * @Description : recyclerview adapter 的包装adapter
  * @Author : wdk
@@ -95,6 +97,14 @@ public class AdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (isFooter(position)) return;
+
+
+        mAdapter.onBindViewHolder(holder, position, payloads);
     }
 
     /**
