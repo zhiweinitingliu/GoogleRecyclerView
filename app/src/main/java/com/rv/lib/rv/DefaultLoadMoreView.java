@@ -1,6 +1,7 @@
 package com.rv.lib.rv;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,11 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
         setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
         setGravity(Gravity.CENTER);
         setVisibility(GONE);
+
+        //这一行指定高度很重要，在加载更多的时候用来判断position用
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int minHeight = (int) (displayMetrics.density * 60 + 0.5);
+        setMinimumHeight(minHeight);
 
         inflate(context, R.layout.layout_fotter_loadmore, this);
         progress_bar = findViewById(R.id.progress_bar);
