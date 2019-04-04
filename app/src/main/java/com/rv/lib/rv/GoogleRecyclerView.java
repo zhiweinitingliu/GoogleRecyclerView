@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,23 @@ public class GoogleRecyclerView extends RecyclerView {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
+        initViewCanvasListener();
+    }
 
+
+    boolean isViewChanged = false;
+
+    /**
+     * 添加view绘制的监听
+     */
+    private void initViewCanvasListener() {
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                isViewChanged = true;
+                Log.e("GoogleRecycler:", "布局变化：  " + isViewChanged);
+            }
+        });
     }
 
     @Override
