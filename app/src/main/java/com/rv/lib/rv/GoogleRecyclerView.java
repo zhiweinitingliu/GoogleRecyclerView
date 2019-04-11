@@ -254,8 +254,9 @@ public class GoogleRecyclerView extends RecyclerView {
      *
      * @param dataEmpty 列表是否为空
      * @param hasMore   是否有加载更多
+     * @param loadState ListLoadStateEnum loadState
      */
-    public void loadMoreFinish(final boolean dataEmpty, final boolean hasMore, ListLoadStateEnum loadState) {
+    public void loadMoreFinish(final boolean dataEmpty, final boolean hasMore, Object loadState) {
         isLoadError = false;
         isLoadMore = false;
 
@@ -269,7 +270,8 @@ public class GoogleRecyclerView extends RecyclerView {
 //
 //                boolean isCanFillScreen = isCanFillScreen();
 //                if (mLoadMoreView != null) {
-        mLoadMoreView.onLoadFinish(dataEmpty, hasMore, loadState);
+
+        mLoadMoreView.onLoadFinish(dataEmpty, hasMore, loadState == null ? null : (ListLoadStateEnum) loadState);
 //                }
 //            }
 //        });
