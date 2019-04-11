@@ -45,6 +45,11 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
     }
 
     @Override
+    public void show() {
+        setVisibility(VISIBLE);
+    }
+
+    @Override
     public void onLoading() {
         setVisibility(VISIBLE);
         progress_bar.setVisibility(VISIBLE);
@@ -53,21 +58,27 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
     }
 
     @Override
-    public void onLoadFinish(boolean dataEmpty, boolean hasMore, boolean isCanFillScreen) {
+    public void onLoadFinish(boolean dataEmpty, boolean hasMore,  GoogleRecyclerView.LoadState loadState) {
+
+        if (GoogleRecyclerView.LoadState.firstLoadState.equals(loadState) || GoogleRecyclerView.LoadState.refreshLoadState.equals(loadState)){
+            setVisibility(INVISIBLE);
+        }else {
+            setVisibility(VISIBLE);
+        }
 
         if (hasMore) {
             setVisibility(INVISIBLE);
 
         } else {
             //没有更多数据了
-
-            if (isCanFillScreen) {
-                //能够显示满一屏
-                setVisibility(VISIBLE);
-            } else {
-                //不能显示满一屏
-                setVisibility(INVISIBLE);
-            }
+//
+//            if (isCanFillScreen) {
+//                //能够显示满一屏
+//                setVisibility(VISIBLE);
+//            } else {
+//                //不能显示满一屏
+//                setVisibility(INVISIBLE);
+//            }
 
             if (dataEmpty) {
                 progress_bar.setVisibility(GONE);
