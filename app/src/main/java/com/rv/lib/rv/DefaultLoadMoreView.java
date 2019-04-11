@@ -34,7 +34,7 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
 
         //这一行指定高度很重要，在加载更多的时候用来判断position用
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int minHeight = (int) (displayMetrics.density * 60 + 0.5);
+        int minHeight = (int) (displayMetrics.density * 40 + 0.5);
         setMinimumHeight(minHeight);
 
         inflate(context, R.layout.layout_fotter_loadmore, this);
@@ -54,7 +54,7 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
         setVisibility(VISIBLE);
         progress_bar.setVisibility(VISIBLE);
         tv_message.setVisibility(VISIBLE);
-        tv_message.setText("loading...");
+        tv_message.setText("正在加载中...");
     }
 
     @Override
@@ -71,15 +71,6 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
 
         } else {
             //没有更多数据了
-//
-//            if (isCanFillScreen) {
-//                //能够显示满一屏
-//                setVisibility(VISIBLE);
-//            } else {
-//                //不能显示满一屏
-//                setVisibility(INVISIBLE);
-//            }
-
             if (dataEmpty) {
                 progress_bar.setVisibility(GONE);
                 tv_message.setVisibility(VISIBLE);
@@ -87,7 +78,7 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
             } else {
                 progress_bar.setVisibility(GONE);
                 tv_message.setVisibility(VISIBLE);
-                tv_message.setText("没有更多数据啦");
+                tv_message.setText("已经加载全部数据");
             }
         }
     }
@@ -98,7 +89,7 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
         setVisibility(VISIBLE);
         progress_bar.setVisibility(VISIBLE);
         tv_message.setVisibility(VISIBLE);
-        tv_message.setText("点我加载更多");
+        tv_message.setText("点击加载更多");
     }
 
     @Override

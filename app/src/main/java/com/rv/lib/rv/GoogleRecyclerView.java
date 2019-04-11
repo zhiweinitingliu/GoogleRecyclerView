@@ -7,9 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,23 +48,7 @@ public class GoogleRecyclerView extends RecyclerView {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
-        initViewCanvasListener();
-    }
 
-
-    boolean isViewChanged = false;
-
-    /**
-     * 添加view绘制的监听
-     */
-    private void initViewCanvasListener() {
-        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                isViewChanged = true;
-                Log.e("GoogleRecycler:", "布局变化：  " + isViewChanged);
-            }
-        });
     }
 
     @Override
@@ -165,11 +147,9 @@ public class GoogleRecyclerView extends RecyclerView {
         if (mAdapterWrapper == null) throw new IllegalStateException(msg);
     }
 
-
     /**
      * 加载更多
      */
-
     private int mScrollState = -1;
     private boolean isLoadMore = false;
     private boolean isAutoLoadMore = true;
@@ -220,7 +200,6 @@ public class GoogleRecyclerView extends RecyclerView {
                 dispatchLoadMore();
             }
 
-
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
 
 
@@ -231,6 +210,7 @@ public class GoogleRecyclerView extends RecyclerView {
      * 执行加载更多
      */
     private void dispatchLoadMore() {
+        //列表可以滑动，滑动到底部将加载更多的脚布局显示
         if (mLoadMoreView != null) mLoadMoreView.show();
 
         if (!isAutoLoadMore) {
@@ -264,51 +244,7 @@ public class GoogleRecyclerView extends RecyclerView {
         mDataEmpty = dataEmpty;
         mHasMore = hasMore;
 
-//        post(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                boolean isCanFillScreen = isCanFillScreen();
-//                if (mLoadMoreView != null) {
-
         mLoadMoreView.onLoadFinish(dataEmpty, hasMore, loadState == null ? null : (ListLoadStateEnum) loadState);
-//                }
-//            }
-//        });
-    }
-
-    /**
-     * 数据是否够显示满屏幕
-     *
-     * @return
-     */
-    public boolean isCanFillScreen() {
-        LayoutManager layoutManager = getLayoutManager();
-        if (layoutManager instanceof LinearLayoutManager) {
-            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
-
-            int itemCount = layoutManager.getItemCount();
-            if (itemCount <= 0) return false;
-
-            int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
-            if (itemCount == lastVisiblePosition + 1) return false;
-
-            return true;
-
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
-
-            int itemCount = layoutManager.getItemCount();
-            if (itemCount <= 0) return false;
-
-            int[] lastVisiblePositionArray = staggeredGridLayoutManager.findLastCompletelyVisibleItemPositions(null);
-            int lastVisiblePosition = lastVisiblePositionArray[lastVisiblePositionArray.length - 1];
-
-            if (itemCount == lastVisiblePosition + 1) return false;
-
-            return true;
-        }
-        return false;
     }
 
     public interface LoadMoreView {
