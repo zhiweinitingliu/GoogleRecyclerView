@@ -58,11 +58,11 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
     }
 
     @Override
-    public void onLoadFinish(boolean dataEmpty, boolean hasMore,  GoogleRecyclerView.LoadState loadState) {
+    public void onLoadFinish(boolean dataEmpty, boolean hasMore, ListLoadStateEnum loadState) {
 
-        if (GoogleRecyclerView.LoadState.firstLoadState.equals(loadState) || GoogleRecyclerView.LoadState.refreshLoadState.equals(loadState)){
+        if (ListLoadStateEnum.FIRSTLOAD.equals(loadState) || ListLoadStateEnum.REFRESH.equals(loadState)) {
             setVisibility(INVISIBLE);
-        }else {
+        } else {
             setVisibility(VISIBLE);
         }
 

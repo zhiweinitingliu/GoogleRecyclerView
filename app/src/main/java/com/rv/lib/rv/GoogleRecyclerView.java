@@ -255,7 +255,7 @@ public class GoogleRecyclerView extends RecyclerView {
      * @param dataEmpty 列表是否为空
      * @param hasMore   是否有加载更多
      */
-    public void loadMoreFinish(final boolean dataEmpty, final boolean hasMore, LoadState loadState) {
+    public void loadMoreFinish(final boolean dataEmpty, final boolean hasMore, ListLoadStateEnum loadState) {
         isLoadError = false;
         isLoadMore = false;
 
@@ -269,7 +269,7 @@ public class GoogleRecyclerView extends RecyclerView {
 //
 //                boolean isCanFillScreen = isCanFillScreen();
 //                if (mLoadMoreView != null) {
-                    mLoadMoreView.onLoadFinish(dataEmpty, hasMore, loadState);
+        mLoadMoreView.onLoadFinish(dataEmpty, hasMore, loadState);
 //                }
 //            }
 //        });
@@ -309,10 +309,6 @@ public class GoogleRecyclerView extends RecyclerView {
         return false;
     }
 
-    enum LoadState {
-        firstLoadState, refreshLoadState, LoadMoreState;
-    }
-
     public interface LoadMoreView {
 
         void show();
@@ -325,7 +321,7 @@ public class GoogleRecyclerView extends RecyclerView {
         /**
          * Load finish, handle result.
          */
-        void onLoadFinish(boolean dataEmpty, boolean hasMore, LoadState loadState);
+        void onLoadFinish(boolean dataEmpty, boolean hasMore, ListLoadStateEnum loadState);
 
         /**
          * Non-auto-loading mode, you can to click on the item to load.
