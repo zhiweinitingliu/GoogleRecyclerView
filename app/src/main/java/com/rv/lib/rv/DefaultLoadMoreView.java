@@ -34,7 +34,7 @@ public class DefaultLoadMoreView extends LinearLayout implements GoogleRecyclerV
 
         //这一行指定高度很重要，在加载更多的时候用来判断position用
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int minHeight = (int) (displayMetrics.density * 40 + 0.5);
+        int minHeight = (int) (displayMetrics.density * 45 + 0.5);
         setMinimumHeight(minHeight);
 
         inflate(context, R.layout.layout_fotter_loadmore, this);

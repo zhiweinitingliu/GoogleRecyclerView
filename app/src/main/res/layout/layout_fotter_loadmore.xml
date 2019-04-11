@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:textColor="@color/color999999"
+        android:textSize="13dp"
         android:visibility="gone"
         tools:text="Loading..." />
 
